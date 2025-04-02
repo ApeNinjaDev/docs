@@ -1,106 +1,45 @@
-{
-  "$schema": "https://mintlify.com/docs.schema.json",
-  "name": "ApeNinja Docs",
-  "theme": "mint",
-  "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
-  },
-  "favicon": "/favicon.svg",
-  "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
-  },
-  "navigation": {
-    "groups": [
-      {
-        "group": "Getting Started",
-        "pages": [
-          "introduction",
-          "quickstart",
-          "why-apeninja"
-        ]
-      },
-      {
-        "group": "Features",
-        "pages": [
-          "features/superaccount",
-          "features/trading",
-          "features/cross-chain",
-          "features/security"
-        ]
-      },
-      {
-        "group": "Use Cases",
-        "pages": [
-          "use-cases/nft-sniping",
-          "use-cases/yield-farming",
-          "use-cases/presale-trading"
-        ]
-      },
-      {
-        "group": "Technical",
-        "pages": [
-          "technical/architecture",
-          "technical/contracts"
-        ]
-      },
-      {
-        "group": "API Reference",
-        "pages": [
-          "api-reference/introduction",
-          "api-reference/authentication",
-          "api-reference/endpoints/trading",
-          "api-reference/endpoints/accounts"
-        ]
-      },
-      {
-        "group": "Resources",
-        "pages": [
-          "resources/faq",
-          "resources/fees"
-        ]
-      }
+"navigation": [
+  {
+    "group": "Core",
+    "pages": [
+      "introduction",
+      "why-apeninja"
     ]
   },
-  "anchors": [
-    {
-      "name": "Website",
-      "icon": "globe",
-      "url": "https://apeninja.co"
-    },
-    {
-      "name": "Discord",
-      "icon": "discord",
-      "url": "https://discord.gg/apeninja"
-    },
-    {
-      "name": "Telegram",
-      "icon": "telegram",
-      "url": "https://t.me/apeninjaofficial"
-    }
-  ],
-  "footerSocials": {
-    "twitter": "https://twitter.com/apeninja",
-    "github": "https://github.com/apeninja",
-    "discord": "https://discord.gg/apeninja",
-    "telegram": "https://t.me/apeninjaofficial"
+  {
+    "group": "Features",
+    "pages": [
+      "features/summary",
+      "features/superaccount",
+      "features/smart-slippage",
+      "features/smart-position-controls"
+    ]
   },
-  "modeToggle": {
-    "default": "dark"
+  {
+    "group": "Ecosystem",
+    "pages": [
+      "platforms-and-chains",
+      "contracts",
+      "fees",
+      "architecture",
+      "security"
+    ]
   },
-  "feedback": {
-    "thumbsRating": true
+  {
+    "group": "Resources",
+    "pages": [
+      "faq",
+      "contact"
+    ]
   },
-  "topbarCtaButton": {
-    "name": "Launch App",
-    "url": "https://app.apeninja.co"
-  },
-  "topbarLinks": [
-    {
-      "name": "Support",
-      "url": "mailto:support@apeninja.co"
-    }
-  ]
-}
+  {
+    "group": "Platform Guides",
+    "pages": [
+      "platform-guides/webapp",
+      "platform-guides/extension",
+      "platform-guides/telegram-bot",
+      "platform-guides/twitter-bot",
+      "platform-guides/js-sdk"
+    ]
+  }
+]
