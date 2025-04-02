@@ -1,46 +1,49 @@
-# 🏗️ Architecture
+# 🏗️ Technical Architecture
 
-> Under the hood, ApeNinja is a powerful modular trade execution engine built for speed, flexibility, and multi-chain dominance.
+> **ApeNinja's foundation is a sophisticated modular execution framework engineered for unparalleled speed, adaptability, and multi-chain operational excellence.**
 
----
+## 🔩 Core Infrastructure Components
 
-## 🔩 Core Components
+### 🧩 CoreTrading Contract Suite
+Our proprietary contracts orchestrate all trading operations and routing logic across the EVM ecosystem:
 
-### 🧩 CoreTrading Contracts
-These contracts handle all trade execution and routing logic across supported EVM chains.
+- Advanced abstraction of routing mechanisms and decentralized exchange interactions
+- Comprehensive handling of approvals, token swaps, and position management protocols
+- Dynamic pool identification system enabling precision routing strategies
 
-- Abstracts routing and DEX logic
-- Handles approvals, swaps, position controls
-- Flexible pool ID routing
+### 🧬 Strategy Implementation Layer
+Purpose-built contracts that interface with specialized liquidity venues through our strategic pool identification system:
 
-### 🧬 Strategy Contracts
-Plug into specific DEXs, yield vaults, or aggregators via pool IDs.
+| Pool Identifier | Strategic Implementation |
+|-----------------|--------------------------|
+| `0` | Advanced Aggregator Integration (Odos, Paraswap) |
+| `1` | Uniswap V2 Protocol Optimization |
+| `2` | SushiSwap Execution Pathway |
+| `3` | Yield Generation Protocol Access |
+| `4` | NFT Marketplace Interface (OpenSea, etc.) |
 
-| Pool ID | Strategy Type |
-|--------|----------------|
-| `0` | Aggregator (Odos, Paraswap) |
-| `1` | Uniswap V2 |
-| `2` | SushiSwap |
-| `3` | Yield Vaults |
-| `4` | NFT Marketplaces (e.g., OpenSea) |
+### 🔐 SuperAccount™ Smart Wallet Technology
+- Single deployment architecture per blockchain network
+- Unified control mechanism with enhanced security protocols
+- Integrated support for Jeet/AntiJeet methodologies, dynamic slippage adjustment, and pre-execution validations
 
-### 🔐 SuperAccount Smart Wallets
-- Deploy once per chain
-- Control everything with one key
-- Supports Jeet/AntiJeet, slippage, and validations
+### 🧠 API Orchestration Layer
+- Centralized infrastructure powering all interface modalities: Telegram integration, Chrome extension, Web application, and Twitter functionality
+- Comprehensive REST architecture providing unified endpoints for wallet operations, trading execution, and data access
 
-### 🧠 API Layer
-- Powers the Telegram bot, Chrome extension, Web App, and Twitter bot
-- Unified REST interface for wallet, trading, and data endpoints
+## 🔄 Execution Flow Architecture
 
----
+**Standard EVM Chain Process:**
+1. User initiates transaction through preferred interface
+2. API layer processes request and authentication
+3. SuperAccount smart wallet receives and validates transaction parameters
+4. CoreTrading contracts determine optimal execution pathway
+5. Strategy layer interfaces with appropriate liquidity venue
+6. Transaction completes with confirmation returned to originating interface
 
-## 🔄 Trade Flow
+**Solana Execution Pathway:**
+1. User initiates Solana-based transaction
+2. API layer processes request with specialized Solana parameters
+3. Direct integration with Jupiter protocol handles execution without intermediary wallet requirements
 
-```mermaid
-graph LR
-User --> API --> SuperAccount --> CoreTrading --> Strategy --> Swap Done
-
-On Solana, we skip wallets entirely and call into Jupiter directly:
-graph LR
-User --> API --> Jupiter (Solana Router)
+*This architectural framework enables ApeNinja to deliver institutional-grade execution capabilities while maintaining intuitive user experience across all supported blockchains.*
