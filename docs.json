@@ -1,13 +1,13 @@
 {
   "$schema": "https://mintlify.com/docs.schema.json",
   "name": "ApeNinja Docs",
-  "theme": "mint",
+  "theme": "maple",
   "colors": {
     "primary": "#FDBA74",
     "light": "#FFEDD5",
     "dark": "#EA580C"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/images/favicon.png",
   "navigation": {
     "tabs": [
       {
