@@ -18,12 +18,7 @@
         "group": "Introduction",
         "pages": [
           "introduction",
-          "why-apeninja"
-        ]
-      },
-      {
-        "group": "Features",
-        "pages": [
+          "why-apeninja",
           "features/summary",
           "features/superaccount",
           "features/smart-slippage",
