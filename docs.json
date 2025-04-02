@@ -1,45 +1,101 @@
-"navigation": [
-  {
-    "group": "Core",
-    "pages": [
-      "introduction",
-      "why-apeninja"
+{
+  "$schema": "https://mintlify.com/docs.schema.json",
+  "name": "ApeNinja Docs",
+  "theme": "mint",
+  "colors": {
+    "primary": "#16A34A",
+    "light": "#07C983",
+    "dark": "#15803D"
+  },
+  "favicon": "/favicon.svg",
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  },
+  "navigation": {
+    "groups": [
+      {
+        "group": "Introduction",
+        "pages": [
+          "introduction",
+          "why-apeninja"
+        ]
+      },
+      {
+        "group": "Features",
+        "pages": [
+          "features/summary",
+          "features/superaccount",
+          "features/smart-slippage",
+          "features/smart-position-controls"
+        ]
+      },
+      {
+        "group": "Ecosystem",
+        "pages": [
+          "platforms-and-chains",
+          "contracts",
+          "fees",
+          "architecture",
+          "security"
+        ]
+      },
+      {
+        "group": "Resources",
+        "pages": [
+          "faq",
+          "contact"
+        ]
+      },
+      {
+        "group": "Platform Guides",
+        "pages": [
+          "platform-guides/webapp",
+          "platform-guides/extension",
+          "platform-guides/telegram-bot",
+          "platform-guides/twitter-bot",
+          "platform-guides/js-sdk"
+        ]
+      }
     ]
   },
-  {
-    "group": "Features",
-    "pages": [
-      "features/summary",
-      "features/superaccount",
-      "features/smart-slippage",
-      "features/smart-position-controls"
-    ]
+  "anchors": [
+    {
+      "name": "Website",
+      "icon": "globe",
+      "url": "https://apeninja.co"
+    },
+    {
+      "name": "Discord",
+      "icon": "discord",
+      "url": "https://discord.gg/apeninja"
+    },
+    {
+      "name": "Telegram",
+      "icon": "telegram",
+      "url": "https://t.me/apeninjaofficial"
+    }
+  ],
+  "footerSocials": {
+    "twitter": "https://twitter.com/apeninja",
+    "github": "https://github.com/apeninja",
+    "discord": "https://discord.gg/apeninja",
+    "telegram": "https://t.me/apeninjaofficial"
   },
-  {
-    "group": "Ecosystem",
-    "pages": [
-      "platforms-and-chains",
-      "contracts",
-      "fees",
-      "architecture",
-      "security"
-    ]
+  "modeToggle": {
+    "default": "dark"
   },
-  {
-    "group": "Resources",
-    "pages": [
-      "faq",
-      "contact"
-    ]
+  "feedback": {
+    "thumbsRating": true
   },
-  {
-    "group": "Platform Guides",
-    "pages": [
-      "platform-guides/webapp",
-      "platform-guides/extension",
-      "platform-guides/telegram-bot",
-      "platform-guides/twitter-bot",
-      "platform-guides/js-sdk"
-    ]
-  }
-]
+  "topbarCtaButton": {
+    "name": "Launch App",
+    "url": "https://app.apeninja.co"
+  },
+  "topbarLinks": [
+    {
+      "name": "Support",
+      "url": "mailto:support@apeninja.co"
+    }
+  ]
+}
