@@ -1,8 +1,49 @@
-# 🥷 ApeNinja Docs
+---
+title: 'API Reference'
+description: 'Complete reference for the ApeNinja API'
+---
 
-Welcome to ApeNinja—the ultimate gateway to DeFi.  
-Explore everything from setup to advanced trading strategies, all in one place.
+# ApeNinja API
 
-> One account. One click. Every chain.
+Welcome to the ApeNinja API reference. Use our API to programmatically execute trades, manage your portfolio, and handle authentication across multiple blockchain networks.
 
-🚀 Start with [Quickstart](./quickstart) or explore [Why ApeNinja](./why-apeninja).
+<Card title="Base URL" icon="server" iconType="duotone">
+  All API requests should be made to:
+  ```bash
+  https://api.apeninja.co
+  ```
+</Card>
+
+## Authentication Methods
+
+<CardGroup cols={2}>
+  <Card title="Bearer Token" icon="key" iconType="duotone">
+    After login, you'll receive a JWT token to include in the Authorization header:
+    ```
+    Authorization: Bearer YOUR_JWT_TOKEN
+    ```
+  </Card>
+  <Card title="API Key" icon="lock" iconType="duotone">
+    Alternatively, use the API key from your registration email:
+    ```
+    x-api-key: YOUR_API_KEY
+    ```
+  </Card>
+</CardGroup>
+
+## API Categories
+
+<CardGroup cols={2}>
+  <Card title="Authentication APIs" icon="user" iconType="duotone" href="/api/v1/auth/initiate-auth">
+    Create accounts, handle login, and manage API keys
+  </Card>
+  <Card title="Trading APIs" icon="chart-line" iconType="duotone" href="/api/v1/trade/fetch-route">
+    Create and manage trades across multiple blockchain networks
+  </Card>
+  <Card title="Portfolio APIs" icon="wallet" iconType="duotone" href="/api/v1/portfolio/holdings">
+    Track holdings and view supported networks
+  </Card>
+  <Card title="Platform APIs" icon="gear" iconType="duotone" href="/api/v1/app-transaction/update-defaults">
+    Configure settings and defaults for your account
+  </Card>
+</CardGroup>
