@@ -1,2 +1,14 @@
-# Architecture
-Deep dive into our modular trade infra.
+# 🧠 Architecture
+
+### Components
+- `CoreTrading` – main router
+- `Strategy Contracts` – plug into any DEX
+- `SuperAccount` – smart wallet
+- `API Layer` – unifies all interfaces
+
+```mermaid
+graph LR
+User --> API
+API --> SuperAccount
+SuperAccount --> CoreTrading
+CoreTrading --> Strategy
