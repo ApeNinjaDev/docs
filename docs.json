@@ -9,40 +9,83 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
-    "groups": [
+    "tabs": [
       {
-        "group": "Introduction",
-        "pages": [
-          "introduction",
-          "why-apeninja",
-          "features"
+        "tab": "Guides",
+        "groups": [
+          {
+            "group": "Introduction",
+            "pages": [
+              "introduction",
+              "why-apeninja",
+              "features"
+            ]
+          },
+          {
+            "group": "Ecosystem",
+            "pages": [
+              "ecosystem/architecture",
+              "ecosystem/security",
+              "ecosystem/supported-chains",
+              "ecosystem/contracts",
+              "ecosystem/fees"
+            ]
+          },
+          {
+            "group": "Platform Guides",
+            "pages": [
+              "platform-guides/webapp",
+              "platform-guides/extension",
+              "platform-guides/telegram-bot",
+              "platform-guides/twitter-bot",
+              "platform-guides/sdk"
+            ]
+          }
         ]
       },
       {
-        "group": "Ecosystem",
-        "pages": [
-          "ecosystem/architecture",
-          "ecosystem/security",
-          "ecosystem/supported-chains",
-          "ecosystem/contracts",
-          "ecosystem/fees"
-        ]
-      },
-      {
-        "group": "Platform Guides",
-        "pages": [
-          "platform-guides/webapp",
-          "platform-guides/extension",
-          "platform-guides/telegram-bot",
-          "platform-guides/twitter-bot",
-          "platform-guides/sdk"
-        ]
-      },
-      {
-        "group": "API",
-        "pages": [
-          "api-reference/introduction",
-          "api-reference/authentication"
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "api-reference/introduction",
+              "api-reference/authentication"
+            ]
+          },
+          {
+            "group": "Authentication Endpoints",
+            "pages": [
+              "api/v1/auth/initiate-auth",
+              "api/v1/auth/confirm-auth",
+              "api/v1/auth/reinitialise-api-key",
+              "api/v1/auth/profile"
+            ]
+          },
+          {
+            "group": "Trading Endpoints",
+            "pages": [
+              "api/v1/trade/create-super-account",
+              "api/v1/trade/fetch-route",
+              "api/v1/trade/instant-buy",
+              "api/v1/trade/custom-sell",
+              "api/v1/trade/instant-sell",
+              "api/v1/trade/export-wallet"
+            ]
+          },
+          {
+            "group": "Portfolio Endpoints",
+            "pages": [
+              "api/v1/portfolio/supported-networks",
+              "api/v1/portfolio/holdings"
+            ]
+          },
+          {
+            "group": "Platform Endpoints",
+            "pages": [
+              "api/v1/app-transaction/update-defaults"
+            ]
+          }
         ]
       }
     ]
