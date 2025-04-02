@@ -13,35 +13,55 @@
     "dark": "/logo/dark.svg"
   },
   "navigation": {
-    "Getting Started": [
-      "introduction",
-      "quickstart",
-      "why-apeninja"
-    ],
-    "Features": [
-      "features/superaccount",
-      "features/trading",
-      "features/cross-chain",
-      "features/security"
-    ],
-    "Use Cases": [
-      "use-cases/nft-sniping",
-      "use-cases/yield-farming",
-      "use-cases/presale-trading"
-    ],
-    "Technical": [
-      "technical/architecture",
-      "technical/contracts"
-    ],
-    "API Reference": [
-      "api-reference/introduction",
-      "api-reference/authentication",
-      "api-reference/endpoints/trading",
-      "api-reference/endpoints/accounts"
-    ],
-    "Resources": [
-      "resources/faq",
-      "resources/fees"
+    "groups": [
+      {
+        "group": "Getting Started",
+        "pages": [
+          "introduction",
+          "quickstart",
+          "why-apeninja"
+        ]
+      },
+      {
+        "group": "Features",
+        "pages": [
+          "features/superaccount",
+          "features/trading",
+          "features/cross-chain",
+          "features/security"
+        ]
+      },
+      {
+        "group": "Use Cases",
+        "pages": [
+          "use-cases/nft-sniping",
+          "use-cases/yield-farming",
+          "use-cases/presale-trading"
+        ]
+      },
+      {
+        "group": "Technical",
+        "pages": [
+          "technical/architecture",
+          "technical/contracts"
+        ]
+      },
+      {
+        "group": "API Reference",
+        "pages": [
+          "api-reference/introduction",
+          "api-reference/authentication",
+          "api-reference/endpoints/trading",
+          "api-reference/endpoints/accounts"
+        ]
+      },
+      {
+        "group": "Resources",
+        "pages": [
+          "resources/faq",
+          "resources/fees"
+        ]
+      }
     ]
   },
   "anchors": [
