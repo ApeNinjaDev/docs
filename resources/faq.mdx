@@ -1,0 +1,185 @@
+---
+title: 'FAQ'
+description: 'Frequently Asked Questions about ApeNinja'
+---
+
+# Frequently Asked Questions
+
+## General Questions
+
+<AccordionGroup>
+  <Accordion title="What is ApeNinja?">
+    ApeNinja is a DeFi access layer that provides a secure, blazing-fast, multi-chain portal to trade tokens, snipe NFTs, participate in presales, and deploy yield strategies—all from a single interface. We simplify the DeFi experience by connecting you to the best protocols across multiple blockchains through a unified platform.
+  </Accordion>
+  
+  <Accordion title="How is ApeNinja different from other trading platforms?">
+    ApeNinja differs from traditional DEXs and trading platforms in several key ways:
+    
+    1. **Multi-platform access**: Trade from Telegram, Twitter, Chrome extension, web app, or API
+    2. **One-click trades**: Execute approvals and swaps in a single transaction
+    3. **Cross-chain capabilities**: Trade across different blockchains without bridges
+    4. **SuperAccount technology**: Smart contract wallets that enhance security and efficiency
+    5. **Email-based onboarding**: Start trading with just an email address—no wallet setup required
+    
+    Instead of building yet another DEX, we've created a DeFi access layer that connects to existing protocols and makes them easier to use.
+  </Accordion>
+  
+  <Accordion title="Which blockchains does ApeNinja support?">
+    ApeNinja currently supports the following blockchains:
+    
+    - Ethereum
+    - BSC (Binance Smart Chain)
+    - Arbitrum
+    - Base
+    - Sonic
+    - Berachain
+    - Solana (via Jupiter integration)
+    
+    We're constantly adding support for more chains. Check our [supported chains](/technical/chains) page for the most up-to-date information.
+  </Accordion>
+</AccordionGroup>
+
+## Account & Security
+
+<AccordionGroup>
+  <Accordion title="Is ApeNinja safe to use?">
+    Yes. ApeNinja is built with security as a top priority:
+    
+    - Non-custodial architecture (you always control your funds)
+    - Wallet custody via Privy (industry-standard security)
+    - Transaction pre-validation to block malicious contracts
+    - Scoped approvals that limit contract permissions
+    - Regular security audits by leading firms
+    
+    Our contracts have been audited, and we implement best practices for smart contract security.
+  </Accordion>
+  
+  <Accordion title="Do I need a crypto wallet to use ApeNinja?">
+    No! That's one of the unique features of ApeNinja. You can sign up with just an email address, and we'll handle wallet creation for you behind the scenes. Of course, if you already have a wallet, you can connect it to ApeNinja as well.
+  </Accordion>
+  
+  <Accordion title="What is a SuperAccount?">
+    A SuperAccount is a smart contract wallet that's deployed once per blockchain. It enables one-click trading (combining approval and swap in a single transaction), enhanced security features, and advanced trading strategies like Jeet/AntiJeet position management.
+    
+    Learn more on our [SuperAccount](/features/superaccount) page.
+  </Accordion>
+</AccordionGroup>
+
+## Trading & Fees
+
+<AccordionGroup>
+  <Accordion title="How do I execute a trade on ApeNinja?">
+    You can execute trades through several interfaces:
+    
+    1. **Web app**: Visit [app.apeninja.co](https://app.apeninja.co) and use the trading interface
+    2. **Telegram bot**: Send commands like `/buy ETH 0.1 USDT` to our [Telegram bot](https://t.me/apeninjabot)
+    3. **Twitter bot**: DM our [Twitter bot](https://twitter.com/apeninjabot) with similar commands
+    4. **Chrome extension**: Use our extension while browsing crypto sites
+    
+    See our [quickstart guide](/quickstart) for detailed instructions.
+  </Accordion>
+  
+  <Accordion title="What fees does ApeNinja charge?">
+    ApeNinja charges a flat 0.5% fee on all trades. This fee is transparent and includes all services:
+    
+    - No hidden fees
+    - No separate approval gas costs
+    - No subscription fees
+    
+    Traditional DEXs typically charge 0.3-1% plus gas for approvals and swaps, so ApeNinja is often more cost-effective, especially for frequent traders.
+    
+    See our [fees page](/resources/fees) for more details.
+  </Accordion>
+  
+  <Accordion title="What are Jeet and AntiJeet strategies?">
+    These are automated position management strategies:
+    
+    - **Jeet**: Automatically secures your capital when your investment reaches 2x, ensuring you get your initial investment back while letting profits ride
+    - **AntiJeet**: Locks half of your investment to prevent impulsive selling, helping you hold through volatility for potentially larger gains
+    
+    These strategies help manage emotions and optimize returns in volatile markets.
+  </Accordion>
+</AccordionGroup>
+
+## Technical Questions
+
+<AccordionGroup>
+  <Accordion title="How does cross-chain trading work?">
+    ApeNinja's cross-chain trading works by:
+    
+    1. Using your SuperAccount on the source chain to sell your tokens
+    2. Routing the resulting stablecoins through our liquidity network
+    3. Using your SuperAccount on the destination chain to buy the target tokens
+    
+    This happens seamlessly from your perspective—you simply select the source and destination tokens, and we handle the complexity behind the scenes.
+  </Accordion>
+  
+  <Accordion title="Can I use ApeNinja with my own applications?">
+    Absolutely! We provide:
+    
+    - RESTful API with comprehensive documentation
+    - JavaScript and Python SDKs
+    - Webhook notifications for events
+    
+    Check our [API reference](/api-reference/introduction) to get started with integration.
+  </Accordion>
+  
+  <Accordion title="How does ApeNinja protect against MEV attacks?">
+    We protect against MEV (Maximal Extractable Value) attacks through several mechanisms:
+    
+    1. Smart slippage calculation based on token volatility and liquidity
+    2. Private transaction routing to minimize frontrunning
+    3. Anti-sandwich attack protections in our contracts
+    4. Optimized routing through aggregators that already implement MEV protection
+    
+    These protections ensure you get the best possible price for your trades.
+  </Accordion>
+</AccordionGroup>
+
+## Support & Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="My transaction failed. What should I do?">
+    If your transaction failed, here are some steps to troubleshoot:
+    
+    1. Check if you have enough funds (including gas) for the transaction
+    2. Verify that the slippage tolerance wasn't exceeded (prices move quickly in DeFi)
+    3. Look for any error messages in the transaction details
+    
+    If you're still having issues, contact our support team at support@apeninja.co or join our [Discord](https://discord.gg/apeninja) for real-time assistance.
+  </Accordion>
+  
+  <Accordion title="How do I get help with ApeNinja?">
+    We offer several support channels:
+    
+    - **Help Center**: Browse our [help articles](https://help.apeninja.com)
+    - **Email Support**: Contact us at support@apeninja.co
+    - **Discord Community**: Join our [Discord server](https://discord.gg/apeninja)
+    - **Telegram Group**: Join our [Telegram community](https://t.me/apeninjaofficial)
+    
+    Our support team is available 24/7 to assist with any questions or issues.
+  </Accordion>
+  
+  <Accordion title="Can I suggest new features?">
+    Absolutely! We love hearing from our community. You can suggest features through:
+    
+    - Our [Discord server](https://discord.gg/apeninja) in the #feature-requests channel
+    - Email to feedback@apeninja.co
+    - Community calls (announced in our Discord and Telegram)
+    
+    Many of our best features came from community suggestions!
+  </Accordion>
+</AccordionGroup>
+
+## Still have questions?
+
+If you couldn't find the answer to your question here, please reach out to our support team:
+
+<CardGroup cols={2}>
+  <Card title="Email Support" icon="envelope" href="mailto:support@apeninja.co">
+    Get personalized help via email
+  </Card>
+  <Card title="Join Discord" icon="discord" href="https://discord.gg/apeninja">
+    Connect with our community and support team
+  </Card>
+</CardGroup>

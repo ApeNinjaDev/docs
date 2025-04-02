@@ -1,33 +1,170 @@
 ---
-title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+title: 'API Reference'
+description: 'Integrate ApeNinja into your applications'
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+# API Reference
 
-## Welcome
+Welcome to the ApeNinja API documentation. Our API allows you to integrate ApeNinja's powerful trading capabilities into your own applications, services, and bots.
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+## Base URL
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+```
+https://api.apeninja.co/v1
+```
+
+All API requests should be made to this base URL.
 
 ## Authentication
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+All API requests require authentication using an API key. You can obtain your API key from the [ApeNinja dashboard](https://app.apeninja.co/settings).
+
+<CodeGroup>
+  ```bash cURL
+  curl -X GET "https://api.apeninja.co/v1/account/balance" \
+    -H "Authorization: Bearer YOUR_API_KEY"
+  ```
+  
+  ```javascript JavaScript
+  fetch('https://api.apeninja.co/v1/account/balance', {
+    method: 'GET',
+    headers: {
+      'Authorization': 'Bearer YOUR_API_KEY'
+    }
+  })
+  .then(response => response.json())
+  .then(data => console.log(data));
+  ```
+  
+  ```python Python
+  import requests
+  
+  headers = {
+      'Authorization': 'Bearer YOUR_API_KEY'
+  }
+  
+  response = requests.get('https://api.apeninja.co/v1/account/balance', headers=headers)
+  data = response.json()
+  print(data)
+  ```
+</CodeGroup>
+
+<Warning>
+  Keep your API key secure! Do not share it or expose it in client-side code.
+</Warning>
+
+## Rate Limits
+
+The ApeNinja API has the following rate limits:
+
+| Plan | Requests per minute | Requests per day |
+| --- | --- | --- |
+| Standard | 60 | 10,000 |
+| Pro | 300 | 50,000 |
+| Enterprise | Custom | Custom |
+
+## Response Format
+
+All API endpoints return data in JSON format. Successful responses will have a 2xx status code, while error responses will have a 4xx or 5xx status code.
+
+### Success Response Structure
 
 ```json
-"security": [
-  {
-    "bearerAuth": []
+{
+  "success": true,
+  "data": {
+    // Response data specific to the endpoint
   }
-]
+}
 ```
+
+### Error Response Structure
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "ERROR_CODE",
+    "message": "Human-readable error message"
+  }
+}
+```
+
+## Available Endpoints
+
+<CardGroup cols={2}>
+  <Card title="Authentication" icon="key" href="/api-reference/authentication">
+    Endpoints for API key management and authentication
+  </Card>
+  <Card title="Trading" icon="chart-line" href="/api-reference/trading">
+    Execute trades, check prices, and manage orders
+  </Card>
+  <Card title="Accounts" icon="user" href="/api-reference/accounts">
+    Manage SuperAccounts and wallet operations
+  </Card>
+</CardGroup>
+
+## SDK Libraries
+
+For easier integration, we provide official SDK libraries for popular programming languages:
+
+<Tabs>
+  <Tab title="JavaScript">
+    ```bash
+    npm install apeninja-sdk
+    ```
+    
+    ```javascript
+    import { ApeNinja } from 'apeninja-sdk';
+    
+    const client = new ApeNinja('YOUR_API_KEY');
+    
+    // Get account balance
+    const balance = await client.account.getBalance();
+    console.log(balance);
+    
+    // Execute a trade
+    const tradeResult = await client.trading.executeTrade({
+      chainId: 1,  // Ethereum
+      tokenIn: 'USDT',
+      tokenOut: 'ETH',
+      amountIn: '100',
+      slippage: 0.5
+    });
+    console.log(tradeResult);
+    ```
+  </Tab>
+  
+  <Tab title="Python">
+    ```bash
+    pip install apeninja-sdk
+    ```
+    
+    ```python
+    from apeninja_sdk import ApeNinja
+    
+    client = ApeNinja('YOUR_API_KEY')
+    
+    # Get account balance
+    balance = client.account.get_balance()
+    print(balance)
+    
+    # Execute a trade
+    trade_result = client.trading.execute_trade(
+        chain_id=1,  # Ethereum
+        token_in='USDT',
+        token_out='ETH',
+        amount_in='100',
+        slippage=0.5
+    )
+    print(trade_result)
+    ```
+  </Tab>
+</Tabs>
+
+## Need Help?
+
+If you encounter any issues or have questions about the API, please contact our developer support:
+
+- Email: dev-support@apeninja.co
+- Discord: [Join our #dev-support channel](https://discord.gg/apeninja)

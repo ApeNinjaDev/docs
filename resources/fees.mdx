@@ -1,0 +1,191 @@
+---
+title: 'Fees & Pricing'
+description: 'Simple, transparent fee structure for ApeNinja'
+---
+
+# 💸 Simple, Fair Fees
+
+ApeNinja is committed to transparency in our fee structure. We've designed our pricing to be straightforward, competitive, and free from hidden costs.
+
+## Trading Fees
+
+<Frame>
+  <img src="/images/fee-comparison.png" style={{ borderRadius: '0.5rem' }} />
+</Frame>
+
+| Platform | Trade Fee | Approval Gas | Hidden Fees |
+| --- | --- | --- | --- |
+| **ApeNinja** | 0.5% | ❌ No separate approval | ❌ None |
+| DEXs | 0.3–1% + gas | ✅ Required per token | ❌ None |
+| Aggregators | 0.1–0.5% + gas | ✅ Required per token | ⚠️ Possible backend fees |
+
+### Understanding Our Fee Structure
+
+ApeNinja charges a flat 0.5% fee on all trades. This fee:
+
+- Is deducted directly from the trade amount
+- Includes all services (no separate platform or subscription fees)
+- Applies consistently across all supported chains
+- Is the same regardless of trade size
+
+<Note>
+  Unlike traditional DEXs, ApeNinja **does not** require separate approval transactions. This saves you gas costs and time, especially when trading new tokens.
+</Note>
+
+## Cost Comparison Example
+
+Let's compare the total cost of trading 1 ETH for USDT across different platforms:
+
+<Tabs>
+  <Tab title="ApeNinja">
+    **Trade Fee:** 0.5% of 1 ETH = 0.005 ETH<br />
+    **Approval Fee:** $0 (included in single transaction)<br />
+    **Total Cost:** 0.005 ETH (approximately $15 at $3,000/ETH)
+    
+    **Transaction Count: 1**
+  </Tab>
+  
+  <Tab title="Traditional DEX">
+    **Trade Fee:** 0.3% of 1 ETH = 0.003 ETH<br />
+    **Approval Gas:** ~$5-15 (varies by network congestion)<br />
+    **Swap Gas:** ~$10-30 (varies by network congestion)<br />
+    **Total Cost:** 0.003 ETH + $15-45 gas (approximately $24-60 at $3,000/ETH)
+    
+    **Transaction Count: 2**
+  </Tab>
+  
+  <Tab title="Aggregator">
+    **Trade Fee:** 0.1% of 1 ETH = 0.001 ETH<br />
+    **Backend Fee:** ~0.2% (often hidden) = 0.002 ETH<br />
+    **Approval Gas:** ~$5-15 (varies by network congestion)<br />
+    **Swap Gas:** ~$15-40 (aggregators use more complex routes)<br />
+    **Total Cost:** 0.003 ETH + $20-55 gas (approximately $29-64 at $3,000/ETH)
+    
+    **Transaction Count: 2**
+  </Tab>
+</Tabs>
+
+As you can see, ApeNinja often provides better overall value, especially when:
+- Gas prices are high
+- You're trading new tokens that require approvals
+- You value your time (fewer transactions = faster execution)
+
+## One-Time Deployment Costs
+
+When using ApeNinja for the first time on each chain, you'll need to deploy your SuperAccount. This is a one-time cost:
+
+| Chain | Approximate Deployment Cost |
+| --- | --- |
+| Ethereum | 0.01-0.02 ETH (varies with gas prices) |
+| Arbitrum | 0.0005-0.001 ETH equivalent |
+| Base | 0.0005-0.001 ETH equivalent |
+| BSC | 0.001-0.002 BNB |
+| Sonic | 0.0001-0.0003 ETH equivalent |
+| Berachain | 0.0001-0.0003 BERA |
+| Solana | No deployment needed |
+
+<Warning>
+  Deployment costs vary based on network congestion. The above figures are estimates under normal conditions.
+</Warning>
+
+## API & SDK Usage
+
+Access to the ApeNinja API and SDK is available through our tiered plans:
+
+<Tabs>
+  <Tab title="Standard (Free)">
+    - Up to 60 requests per minute
+    - Maximum 10,000 requests per day
+    - Basic analytics and monitoring
+    - Standard support
+    
+    **Cost: Free with 0.5% trading fee**
+  </Tab>
+  
+  <Tab title="Pro">
+    - Up to 300 requests per minute
+    - Maximum 50,000 requests per day
+    - Advanced analytics and reporting
+    - Priority support
+    - Custom webhook notifications
+    
+    **Cost: $99/month + 0.5% trading fee**
+  </Tab>
+  
+  <Tab title="Enterprise">
+    - Custom rate limits
+    - Unlimited requests
+    - Dedicated support manager
+    - Custom integrations
+    - SLA guarantees
+    
+    **Cost: Contact sales for custom pricing**
+  </Tab>
+</Tabs>
+
+## Fee Calculation Examples
+
+### Example 1: Simple Swap
+
+```
+Trade: Swap 1,000 USDT for ETH on Ethereum
+Fee: 0.5% of 1,000 USDT = 5 USDT
+You receive: ETH equivalent of 995 USDT at current market rate
+```
+
+### Example 2: Cross-Chain Trade
+
+```
+Trade: Swap 500 USDT on Base for SOL on Solana
+Fee: 0.5% of 500 USDT = 2.5 USDT
+You receive: SOL equivalent of 497.5 USDT at current market rate
+```
+
+### Example 3: NFT Purchase
+
+```
+Trade: Buy NFT listed at 0.5 ETH
+Fee: 0.5% of 0.5 ETH = 0.0025 ETH
+Total cost: 0.5025 ETH
+```
+
+## Frequently Asked Questions
+
+<AccordionGroup>
+  <Accordion title="Are there any hidden fees?">
+    No. ApeNinja is committed to transparency. The 0.5% fee is all-inclusive, and there are no hidden costs, backend fees, or additional charges beyond the stated fee.
+  </Accordion>
+  
+  <Accordion title="Do I need to pay gas fees on top of the 0.5% fee?">
+    Yes, gas fees are still required to execute transactions on the blockchain. However, ApeNinja's one-click trading eliminates the need for separate approval transactions, which can save 30-50% on gas costs compared to traditional DEXs.
+  </Accordion>
+  
+  <Accordion title="Are fees the same across all chains?">
+    Yes, the 0.5% fee is consistent across all supported blockchains. However, the gas costs for deploying SuperAccounts and executing trades vary by chain.
+  </Accordion>
+  
+  <Accordion title="Do you offer discounts for high-volume traders?">
+    Yes, we offer custom fee structures for high-volume traders and institutional clients. Please contact our sales team at sales@apeninja.co to discuss your needs.
+  </Accordion>
+</AccordionGroup>
+
+## Fee Calculator
+
+<Info>
+  Use our fee calculator below to estimate the cost of your trades. Enter the trade amount and select the token to calculate the fee.
+
+  *Coming soon*
+</Info>
+
+## Contact Us
+
+If you have questions about our fee structure or need help understanding the costs associated with using ApeNinja, please contact us:
+
+<CardGroup cols={2}>
+  <Card title="Support Team" icon="headset" href="mailto:support@apeninja.co">
+    General questions about fees and costs
+  </Card>
+  <Card title="Enterprise Sales" icon="building" href="mailto:sales@apeninja.co">
+    Custom pricing for high-volume and institutional users
+  </Card>
+</CardGroup>

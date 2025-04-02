@@ -1,0 +1,161 @@
+---
+title: 'SuperAccount'
+description: 'The magic of ApeNinja's smart contract wallet'
+---
+
+# 🧙 SuperAccount Magic
+
+> Smart contract wallet. One-time deploy. Infinite gains.
+
+SuperAccount is the heart of ApeNinja's technology, enabling lightning-fast trades and enhanced security across all supported blockchains.
+
+## What is SuperAccount?
+
+SuperAccount is a smart contract wallet that acts as your personal trading assistant on each blockchain. Unlike traditional EOA (Externally Owned Account) wallets, SuperAccounts are programmable, allowing for advanced features that aren't possible with standard wallets.
+
+<Note>
+  You only need to deploy a SuperAccount once per blockchain. After that, all your trades on that chain will be faster, cheaper, and more secure.
+</Note>
+
+## Key Features
+
+<Grid>
+  <Box>
+    <h3>✅ Approve + Swap in 1 TX</h3>
+    <p>Combine token approval and swap into a single transaction, saving time and gas</p>
+  </Box>
+  <Box>
+    <h3>✅ Built-in TX validations</h3>
+    <p>Automatic validation of transactions to protect against scams and exploits</p>
+  </Box>
+  <Box>
+    <h3>✅ MEV defense</h3>
+    <p>Protection against sandwich attacks and other MEV extraction techniques</p>
+  </Box>
+  <Box>
+    <h3>✅ Gas optimized</h3>
+    <p>Efficient contract design to minimize gas costs for all operations</p>
+  </Box>
+</Grid>
+
+## How It Works
+
+<Steps>
+  <Step title="One-Time Deployment">
+    When you first use ApeNinja on a new blockchain, we'll prompt you to deploy your SuperAccount. This is a one-time gas cost per chain.
+  </Step>
+  
+  <Step title="Token Transfer">
+    Transfer tokens to your SuperAccount from your existing wallet or via our fiat on-ramp partners.
+  </Step>
+  
+  <Step title="Trade Execution">
+    When you execute a trade, your SuperAccount handles the entire process:
+    
+    1. Validates the transaction for security
+    2. Approves token spending (if needed)
+    3. Executes the swap via the optimal route
+    4. Protects against MEV attacks
+    
+    All in a single transaction!
+  </Step>
+</Steps>
+
+## Technical Deep Dive
+
+SuperAccount is built on the Account Abstraction (AA) paradigm, which is becoming the standard for next-generation wallets in the blockchain ecosystem.
+
+<CodeGroup>
+  ```solidity SuperAccount
+  // Simplified example of our SuperAccount contract
+  contract SuperAccount {
+      address public owner;
+      address public coreTrading;
+      
+      constructor(address _owner, address _coreTrading) {
+          owner = _owner;
+          coreTrading = _coreTrading;
+      }
+      
+      // Execute a trade in a single transaction
+      function executeTradeWithApproval(
+          address tokenIn,
+          address tokenOut,
+          uint256 amountIn,
+          uint256 poolId
+      ) external onlyOwner {
+          // Approve token spending
+          IERC20(tokenIn).approve(coreTrading, amountIn);
+          
+          // Execute the trade
+          ICoreTrading(coreTrading).executeTrade(
+              tokenIn,
+              tokenOut,
+              amountIn,
+              poolId
+          );
+      }
+      
+      // Other utility functions...
+  }
+  ```
+
+  ```javascript Usage
+  // Example of how to use SuperAccount from our SDK
+  const account = new SuperAccount({
+    chainId: 1,  // Ethereum
+    apiKey: 'YOUR_API_KEY'
+  });
+  
+  // Execute a trade with a single transaction
+  await account.trade({
+    tokenIn: 'USDT',
+    tokenOut: 'ETH',
+    amountIn: '100',  // 100 USDT
+    slippage: 0.5     // 0.5% slippage
+  });
+  ```
+</CodeGroup>
+
+## Security Measures
+
+SuperAccount includes multiple layers of security:
+
+1. **Scoped Approvals**: Tokens are only approved for the exact amount needed
+2. **Transaction Validation**: All transactions are validated before execution
+3. **Rate Limiting**: Protection against potential exploits or attacks
+4. **Owner Controls**: Only you can control your SuperAccount
+
+## Supported Chains
+
+<Tabs>
+  <Tab title="Ethereum Ecosystem">
+    - Ethereum Mainnet
+    - Arbitrum
+    - Base
+    - Optimism
+  </Tab>
+  <Tab title="Other EVM Chains">
+    - BSC
+    - Sonic
+    - Berachain
+    - Polygon
+  </Tab>
+  <Tab title="Non-EVM Integration">
+    - Solana (via Jupiter DEX integration)
+    - *Coming soon: SUI, Fuel, and more*
+  </Tab>
+</Tabs>
+
+## Get Started
+
+Ready to experience the magic of SuperAccount? Head to our [quickstart guide](/quickstart) to deploy your first SuperAccount and start trading like a ninja.
+
+<CardGroup cols={2}>
+  <Card title="View Contract Deployments" icon="file-contract" href="/technical/contracts">
+    See the deployed addresses for SuperAccount on each supported chain
+  </Card>
+  <Card title="Learn About Trading" icon="chart-line" href="/features/trading">
+    Discover how SuperAccount enables powerful trading features
+  </Card>
+</CardGroup>
