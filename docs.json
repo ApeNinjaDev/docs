@@ -27,7 +27,6 @@
               "ecosystem/architecture",
               "ecosystem/security",
               "ecosystem/supported-chains",
-              "ecosystem/contracts",
               "ecosystem/fees"
             ]
           },
