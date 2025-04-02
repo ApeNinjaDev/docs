@@ -1,116 +1,86 @@
 {
-    "$schema": "https://mintlify.com/docs.json",
-    "theme": "mint",
-    "name": "ApeNinja Docs",
-    "colors": {
-      "primary": "#F59E0B",
-      "light": "#FFBF00",
-      "dark": "#111827"
-    },
-    "favicon": "/favicon.svg",
-    "logo": {
-      "light": "/logo/light.svg",
-      "dark": "/logo/dark.svg"
-    },
-    "navigation": [
-      {
-        "group": "🚀 Getting Started",
-        "pages": [
-          "index",
-          "introduction",
-          "quickstart",
-          "why-apeninja"
-        ]
-      },
-      {
-        "group": "🧰 Core Features",
-        "pages": [
-          "features/superaccount",
-          "features/trading",
-          "features/cross-chain",
-          "features/security"
-        ]
-      },
-      {
-        "group": "🎯 Use Cases",
-        "pages": [
-          "use-cases/nft-sniping",
-          "use-cases/yield-farming",
-          "use-cases/presale-trading"
-        ]
-      },
-      {
-        "group": "⚙️ Technical Deep Dive",
-        "pages": [
-          "technical/architecture",
-          "technical/contracts"
-        ]
-      },
-      {
-        "group": "📡 API Reference",
-        "pages": [
-          "api-reference/introduction",
-          "api-reference/authentication",
-          {
-            "group": "Endpoints",
-            "pages": [
-              "api-reference/endpoints/trading",
-              "api-reference/endpoints/accounts"
-            ]
-          }
-        ]
-      },
-      {
-        "group": "📚 Resources",
-        "pages": [
-          "resources/faq",
-          "resources/fees"
-        ]
-      }
+  "$schema": "https://mintlify.com/docs.schema.json",
+  "name": "ApeNinja Docs",
+  "theme": "mint",
+  "colors": {
+    "primary": "#16A34A",
+    "light": "#07C983",
+    "dark": "#15803D"
+  },
+  "favicon": "/favicon.svg",
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  },
+  "navigation": {
+    "Getting Started": [
+      "introduction",
+      "quickstart",
+      "why-apeninja"
     ],
-    "anchors": [
-      {
-        "name": "Website",
-        "icon": "globe",
-        "url": "https://apeninja.co"
-      },
-      {
-        "name": "Telegram",
-        "icon": "telegram",
-        "url": "https://t.me/apeninjaofficial"
-      },
-      {
-        "name": "Discord",
-        "icon": "discord",
-        "url": "https://discord.gg/apeninja"
-      },
-      {
-        "name": "Twitter",
-        "icon": "twitter",
-        "url": "https://twitter.com/apeninja"
-      }
+    "Features": [
+      "features/superaccount",
+      "features/trading",
+      "features/cross-chain",
+      "features/security"
     ],
-    "topbarCtaButton": {
-      "name": "Launch App",
-      "url": "https://app.apeninja.co"
-    },
-    "topbarLinks": [
-      {
-        "name": "Support",
-        "url": "mailto:support@apeninja.co"
-      }
+    "Use Cases": [
+      "use-cases/nft-sniping",
+      "use-cases/yield-farming",
+      "use-cases/presale-trading"
     ],
-    "footerSocials": {
-      "twitter": "https://twitter.com/apeninja",
-      "github": "https://github.com/apeninja",
-      "telegram": "https://t.me/apeninjaofficial",
-      "discord": "https://discord.gg/apeninja"
+    "Technical": [
+      "technical/architecture",
+      "technical/contracts"
+    ],
+    "API Reference": [
+      "api-reference/introduction",
+      "api-reference/authentication",
+      "api-reference/endpoints/trading",
+      "api-reference/endpoints/accounts"
+    ],
+    "Resources": [
+      "resources/faq",
+      "resources/fees"
+    ]
+  },
+  "anchors": [
+    {
+      "name": "Website",
+      "icon": "globe",
+      "url": "https://apeninja.co"
     },
-    "feedback": {
-      "thumbsRating": true
+    {
+      "name": "Discord",
+      "icon": "discord",
+      "url": "https://discord.gg/apeninja"
     },
-    "modeToggle": {
-      "default": "dark"
+    {
+      "name": "Telegram",
+      "icon": "telegram",
+      "url": "https://t.me/apeninjaofficial"
     }
-  }
-  
+  ],
+  "footerSocials": {
+    "twitter": "https://twitter.com/apeninja",
+    "github": "https://github.com/apeninja",
+    "discord": "https://discord.gg/apeninja",
+    "telegram": "https://t.me/apeninjaofficial"
+  },
+  "modeToggle": {
+    "default": "dark"
+  },
+  "feedback": {
+    "thumbsRating": true
+  },
+  "topbarCtaButton": {
+    "name": "Launch App",
+    "url": "https://app.apeninja.co"
+  },
+  "topbarLinks": [
+    {
+      "name": "Support",
+      "url": "mailto:support@apeninja.co"
+    }
+  ]
+}
