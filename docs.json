@@ -3,15 +3,11 @@
   "name": "ApeNinja Docs",
   "theme": "mint",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#FDBA74",
+    "light": "#FFEDD5",
+    "dark": "#EA580C"
   },
   "favicon": "/favicon.svg",
-  "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
-  },
   "navigation": {
     "groups": [
       {
@@ -19,27 +15,17 @@
         "pages": [
           "introduction",
           "why-apeninja",
-          "features/summary",
-          "features/superaccount",
-          "features/smart-slippage",
-          "features/smart-position-controls"
+          "features"
         ]
       },
       {
         "group": "Ecosystem",
         "pages": [
-          "platforms-and-chains",
-          "contracts",
-          "fees",
-          "architecture",
-          "security"
-        ]
-      },
-      {
-        "group": "Resources",
-        "pages": [
-          "faq",
-          "contact"
+          "ecosystem/architecture",
+          "ecosystem/security",
+          "ecosystem/supported-chains",
+          "ecosystem/contracts",
+          "ecosystem/fees"
         ]
       },
       {
@@ -49,10 +35,28 @@
           "platform-guides/extension",
           "platform-guides/telegram-bot",
           "platform-guides/twitter-bot",
-          "platform-guides/js-sdk"
+          "platform-guides/sdk"
+        ]
+      },
+      {
+        "group": "API Reference",
+        "pages": [
+          "api-reference/introduction",
+          "api-reference/authentication",
+          {
+            "group": "Endpoints",
+            "pages": [
+              "api-reference/endpoints/trading",
+              "api-reference/endpoints/accounts"
+            ]
+          }
         ]
       }
     ]
+  },
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
   },
   "anchors": [
     {
@@ -61,36 +65,26 @@
       "url": "https://apeninja.co"
     },
     {
+      "name": "Telegram",
+      "icon": "telegram",
+      "url": "https://t.me/apeninjaofficial"
+    },
+    {
       "name": "Discord",
       "icon": "discord",
       "url": "https://discord.gg/apeninja"
     },
     {
-      "name": "Telegram",
-      "icon": "telegram",
-      "url": "https://t.me/apeninjaofficial"
+      "name": "Twitter",
+      "icon": "twitter",
+      "url": "https://twitter.com/apeninja"
     }
   ],
-  "footerSocials": {
-    "twitter": "https://twitter.com/apeninja",
-    "github": "https://github.com/apeninja",
-    "discord": "https://discord.gg/apeninja",
-    "telegram": "https://t.me/apeninjaofficial"
-  },
-  "modeToggle": {
-    "default": "dark"
-  },
   "feedback": {
     "thumbsRating": true
   },
   "topbarCtaButton": {
     "name": "Launch App",
     "url": "https://app.apeninja.co"
-  },
-  "topbarLinks": [
-    {
-      "name": "Support",
-      "url": "mailto:support@apeninja.co"
-    }
-  ]
+  }
 }
