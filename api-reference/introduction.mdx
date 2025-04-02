@@ -1,13 +1,62 @@
-# 📡 API Overview
+---
+title: 'API Reference'
+description: 'Complete reference to the ApeNinja API'
+---
 
-Welcome to the ApeNinja API.
+# ApeNinja API
 
-- RESTful + JS SDK support
-- Wallet creation
-- Trade routing
-- TX simulation
-- Unified trade history
+ApeNinja provides a comprehensive API that allows you to programmatically execute trades, manage your portfolio, and handle authentication. Our API enables you to build automated trading strategies, portfolio management tools, and seamless integrations with other platforms.
 
-Built for devs, bots, dashboards, and automation.
+## Base URL
 
-🔗 Base URL: `https://api.apeninja.co`
+All API calls should be made to the following base URL:
+
+```
+https://api.apeninja.co
+```
+
+## Authentication
+
+Our API supports two authentication methods:
+
+### Bearer Token
+
+After logging in, you'll receive a JWT token that can be used to authenticate your requests. Include this token in the `Authorization` header of your requests:
+
+```
+Authorization: Bearer YOUR_JWT_TOKEN
+```
+
+### API Key
+
+Alternatively, you can use an API key for authentication. You'll receive your API key via email during registration or when generating a new one. Include the API key in the `x-api-key` header:
+
+```
+x-api-key: YOUR_API_KEY
+```
+
+## API Sections
+
+The ApeNinja API is organized into the following sections:
+
+- **Authentication APIs**: Create accounts, handle login, and manage API keys
+- **Trading APIs**: Create and manage trades across multiple blockchain networks
+- **Portfolio APIs**: Track holdings and view supported networks
+- **Platform APIs**: Configure settings and defaults for your account
+
+## Getting Started
+
+To start using the ApeNinja API:
+
+1. Create an account using the Authentication endpoints
+2. Use the JWT token or API key for authentication in subsequent requests
+3. If trading on EVM chains, create a Super Account to enable one-click trading
+4. Start trading by fetching routes and creating buy/sell orders
+
+## Error Handling
+
+API responses include a `success` field indicating whether the request was successful. If an error occurs, the response will include an appropriate error message explaining what went wrong.
+
+## Rate Limits
+
+We implement rate limits to ensure fair usage of our API. These limits vary based on your account type and the specific endpoints you're accessing. If you exceed these limits, you'll receive a 429 response code.

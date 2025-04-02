@@ -1,18 +1,34 @@
-# 🔐 Authentication
+---
+title: 'Authentication'
+description: 'Learn how to authenticate with the ApeNinja API'
+---
 
-All endpoints require API Key.
+# Authentication
 
-## 🔑 How to Get Your Key
-1. Create an account at [app.apeninja.co](https://app.apeninja.co)
-2. Go to “Developer Settings”
-3. Generate and copy your API key
+ApeNinja uses a passwordless authentication system that is both secure and convenient. The authentication flow involves:
 
-### Headers Format
+1. Initiating the authentication process with your email
+2. Verifying your identity with a one-time password (OTP) sent to your email
+3. Receiving a JWT token and API key for future authentication
 
-```bash
-Authorization: Bearer <YOUR_API_KEY>```
+## Authentication Methods
 
-## Rate Limits
-60 requests/minute by default
+Once authenticated, you can use either:
 
-Custom limits available for partners
+- **JWT Token**: A short-lived token returned during the authentication process
+- **API Key**: A long-lived key sent to your email that can be used for persistent access
+
+## Security Recommendations
+
+- Store your API key securely and never expose it in client-side code
+- Consider using environment variables to manage API keys
+- Regenerate your API key immediately if you suspect it has been compromised
+- Use secure, encrypted connections (HTTPS) when communicating with our API
+
+## Important Note on Wallet Export
+
+While we provide an endpoint to export your wallet private keys, please be aware that:
+
+⚠️ **Accounts that have exported their keys will be ineligible for certain upcoming features** including auto bridging and sponsored buys.
+
+We recommend using the export feature only when absolutely necessary and handling the exported keys with the utmost security precautions.

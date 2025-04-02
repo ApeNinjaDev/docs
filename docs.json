@@ -37,22 +37,18 @@
           "platform-guides/twitter-bot",
           "platform-guides/sdk"
         ]
-      },
-      {
-        "group": "API Reference",
-        "pages": [
-          "api-reference/introduction",
-          "api-reference/authentication",
-          {
-            "group": "Endpoints",
-            "pages": [
-              "api-reference/endpoints/trading",
-              "api-reference/endpoints/accounts"
-            ]
-          }
-        ]
       }
     ]
+  },
+  "openapi": "openapi/v1.yaml",
+  "api": {
+    "baseUrl": "https://api.apeninja.co",
+    "auth": {
+      "method": "bearer"
+    },
+    "playground": {
+      "mode": "simple"
+    }
   },
   "logo": {
     "light": "/logo/light.svg",
