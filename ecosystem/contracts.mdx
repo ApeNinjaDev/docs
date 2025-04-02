@@ -1,9 +1,35 @@
-# 🧾 Contracts
+# 📦 Contracts
 
-### Ethereum (ChainId: 1)
-- `CoreTrading`: `0xEbEa078E319b35f14E64e6F855cb91841164bf2a`
-- `SuperAccountFactory`: `0x3728940717a76668A2eAc68Db11752DB2A8C7Efe`
-- `Aggregator (Pool 0)`: `0xC0Fdc79717f8BF38d09d526bdA5a1edA8DF57C3E`
-- `Uniswap V2`: `0x679d1de3cd6a8315F78515894D09871890EA8879`
+> Every chain is supported by a modular, upgradeable set of contracts.
 
-> Same setup across Arbitrum, Base, BSC, Sonic, Berachain.
+---
+
+## 🧱 Core Contracts
+
+| Contract | Purpose |
+|---------|----------|
+| `CoreTrading` | Main router for trade execution |
+| `SuperAccountFactory` | Deploys SuperAccounts per user |
+| `Aggregator` | Handles pool ID = 0 routing (Odos, Paraswap, etc) |
+| `DEX Strategies` | Pool-specific logic for Uniswap, Sushi, etc |
+
+---
+
+## 🧾 Ethereum (Chain ID: 1)
+
+```solidity
+CoreTrading:         0xEbEa078E319b35f14E64e6F855cb91841164bf2a
+SuperAccountFactory: 0x3728940717a76668A2eAc68Db11752DB2A8C7Efe
+Aggregator (Pool 0): 0xC0Fdc79717f8BF38d09d526bdA5a1edA8DF57C3E
+Uniswap V2:          0x679d1de3cd6a8315F78515894D09871890EA8879
+
+
+## 🛠️ Other Supported Chains
+All follow the same contract structure with per-chain deployments:
+Base
+Arbitrum
+BSC
+Sonic
+Berachain
+
+Only Solana is different (Jupiter DEX integration—no contracts deployed).

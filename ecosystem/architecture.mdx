@@ -1,14 +1,46 @@
-# 🧠 Architecture
+# 🏗️ Architecture
 
-### Components
-- `CoreTrading` – main router
-- `Strategy Contracts` – plug into any DEX
-- `SuperAccount` – smart wallet
-- `API Layer` – unifies all interfaces
+> Under the hood, ApeNinja is a powerful modular trade execution engine built for speed, flexibility, and multi-chain dominance.
+
+---
+
+## 🔩 Core Components
+
+### 🧩 CoreTrading Contracts
+These contracts handle all trade execution and routing logic across supported EVM chains.
+
+- Abstracts routing and DEX logic
+- Handles approvals, swaps, position controls
+- Flexible pool ID routing
+
+### 🧬 Strategy Contracts
+Plug into specific DEXs, yield vaults, or aggregators via pool IDs.
+
+| Pool ID | Strategy Type |
+|--------|----------------|
+| `0` | Aggregator (Odos, Paraswap) |
+| `1` | Uniswap V2 |
+| `2` | SushiSwap |
+| `3` | Yield Vaults |
+| `4` | NFT Marketplaces (e.g., OpenSea) |
+
+### 🔐 SuperAccount Smart Wallets
+- Deploy once per chain
+- Control everything with one key
+- Supports Jeet/AntiJeet, slippage, and validations
+
+### 🧠 API Layer
+- Powers the Telegram bot, Chrome extension, Web App, and Twitter bot
+- Unified REST interface for wallet, trading, and data endpoints
+
+---
+
+## 🔄 Trade Flow
 
 ```mermaid
 graph LR
-User --> API
-API --> SuperAccount
-SuperAccount --> CoreTrading
-CoreTrading --> Strategy
+User --> API --> SuperAccount --> CoreTrading --> Strategy --> Swap Done
+
+On Solana, we skip wallets entirely and call into Jupiter directly:
+graph LR
+User --> API --> Jupiter (Solana Router)
