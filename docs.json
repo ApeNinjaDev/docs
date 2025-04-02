@@ -37,6 +37,51 @@
           "platform-guides/twitter-bot",
           "platform-guides/sdk"
         ]
+      },
+      {
+        "group": "API Reference",
+        "pages": [
+          "api-reference/introduction",
+          "api-reference/authentication",
+          {
+            "group": "Endpoints",
+            "pages": [
+              {
+                "group": "Authentication",
+                "pages": [
+                  "api/v1/auth/initiate-auth",
+                  "api/v1/auth/confirm-auth",
+                  "api/v1/auth/reinitialise-api-key",
+                  "api/v1/auth/profile"
+                ]
+              },
+              {
+                "group": "Trading",
+                "pages": [
+                  "api/v1/trade/create-super-account",
+                  "api/v1/trade/fetch-route",
+                  "api/v1/trade/instant-buy",
+                  "api/v1/trade/custom-sell",
+                  "api/v1/trade/instant-sell",
+                  "api/v1/trade/export-wallet"
+                ]
+              },
+              {
+                "group": "Portfolio",
+                "pages": [
+                  "api/v1/portfolio/supported-networks",
+                  "api/v1/portfolio/holdings"
+                ]
+              },
+              {
+                "group": "Platform",
+                "pages": [
+                  "api/v1/app-transaction/update-defaults"
+                ]
+              }
+            ]
+          }
+        ]
       }
     ]
   },
