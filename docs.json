@@ -54,34 +54,34 @@
             ]
           },
           {
-            "group": "Authentication Endpoints",
+            "group": "Authentication",
             "pages": [
               "api/v1/auth/initiate-auth",
               "api/v1/auth/confirm-auth",
               "api/v1/auth/reinitialise-api-key",
-              "api/v1/auth/profile"
+              "api/v1/auth/profile",
+              "api/v1/trade/export-wallet"
             ]
           },
           {
-            "group": "Trading Endpoints",
+            "group": "Trading",
             "pages": [
               "api/v1/trade/create-super-account",
               "api/v1/trade/fetch-route",
               "api/v1/trade/instant-buy",
               "api/v1/trade/custom-sell",
-              "api/v1/trade/instant-sell",
-              "api/v1/trade/export-wallet"
+              "api/v1/trade/instant-sell"
             ]
           },
           {
-            "group": "Portfolio Endpoints",
+            "group": "Portfolio",
             "pages": [
               "api/v1/portfolio/supported-networks",
               "api/v1/portfolio/holdings"
             ]
           },
           {
-            "group": "Platform Endpoints",
+            "group": "Platform",
             "pages": [
               "api/v1/app-transaction/update-defaults"
             ]
@@ -90,7 +90,7 @@
       }
     ]
   },
-  "openapi": "openapi/v1.yaml",
+  "openapi": "openapi/v1.json",
   "api": {
     "baseUrl": "https://api.apeninja.co",
     "auth": {

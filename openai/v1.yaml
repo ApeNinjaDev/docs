@@ -1,576 +1,1074 @@
-openapi: 3.0.0
-info:
-  title: ApeNinja API
-  description: |
-    ## Overview
-
-    ApeNinja is a platform for cryptocurrency trading that allows users to execute trades across multiple networks with ease. This documentation describes the available API endpoints and their functionality.
-
-    Base URL: `https://api.apeninja.co`
-
-    ## Getting Started
-
-    1. Create an account using the Authentication endpoints
-    2. Use the JWT token for authenticated requests or API key emailed during registration
-    3. Create a Super Account before trading on EVM chains (This enables Oneclick Buy and Sell)
-  version: 1.0.0
-servers:
-  - url: https://api.apeninja.co
-    description: Main API server
-tags:
-  - name: Authentication
-    description: APIs for managing user accounts and authentication
-  - name: Trading
-    description: APIs for executing trades and managing positions
-  - name: Portfolio
-    description: APIs for viewing holdings and tracking performance
-  - name: Platform
-    description: APIs for managing platform settings and defaults
-paths:
-  /v1/auth/initiate-auth:
-    post:
-      tags:
-        - Authentication
-      summary: Initiate Authentication
-      description: Creates a new user profile on ApeNinja using the provided email address. A 6-digit one-time password (OTP) will be sent to the email for verification.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  format: email
-                  description: User's email address
-              required:
-                - email
-            example:
-              email: user@email.com
-      responses:
-        '200':
-          description: OTP successfully sent
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                  message:
-                    type: string
-              example:
-                success: true
-                message: OTP Sent to Email
-  /v1/auth/confirm-auth:
-    post:
-      tags:
-        - Authentication
-      summary: Confirm Authentication
-      description: Verifies the one-time password (OTP) received via email. Returns a JWT authentication token upon successful verification.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  format: email
-                  description: User's email address
-                otp:
-                  type: string
-                  description: 6-digit OTP received via email
-              required:
-                - email
-                - otp
-            example:
-              email: user@email.com
-              otp: "123456"
-      responses:
-        '200':
-          description: Authentication successful
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                  userData:
-                    type: object
-                  walletData:
-                    type: array
-                    items:
-                      type: object
-                  authToken:
-                    type: string
-  /v1/auth/reinitialise-api-key:
-    post:
-      tags:
-        - Authentication
-      summary: Reinitialize API Key
-      description: Revokes the current API key and generates a new one. The newly created API key will be sent to your registered email address.
-      security:
-        - BearerAuth: []
-        - ApiKeyAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                consent:
-                  type: boolean
-                  description: Confirmation that user consents to API key regeneration
-              required:
-                - consent
-            example:
-              consent: true
-      responses:
-        '200':
-          description: API key successfully regenerated
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                  message:
-                    type: string
-              example:
-                success: true
-                message: Updated API key is sent to email
-  /v1/trade/export-wallet:
-    post:
-      tags:
-        - Authentication
-      summary: Export Wallet Keys
-      description: |
-        Exports the private keys for all wallets associated with your account and emails them to your registered address.
-
-        ⚠️ WARNING: Using this feature will make your account ineligible for certain upcoming functionalities, including auto bridging and sponsored buys.
-      security:
-        - BearerAuth: []
-        - ApiKeyAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                consent:
-                  type: boolean
-                  description: Confirmation that user consents to key export
-              required:
-                - consent
-            example:
-              consent: true
-      responses:
-        '200':
-          description: Wallet keys successfully exported
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                  message:
-                    type: string
-              example:
-                success: true
-                message: Keys Exported sent to mail
-  /v1/auth/profile:
-    get:
-      tags:
-        - Authentication
-      summary: Get User Profile
-      description: Fetch user profile information including basic info and wallet info
-      security:
-        - BearerAuth: []
-        - ApiKeyAuth: []
-      responses:
-        '200':
-          description: Profile information retrieved successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                  user:
-                    type: object
-                  wallet:
-                    type: array
-                    items:
-                      type: object
-  /v1/trade/create-super-account:
-    post:
-      tags:
-        - Trading
-      summary: Create Super Account
-      description: |
-        Deploys a SuperAccount smart contract on the specified blockchain to enable one-click buy and sell functionality. 
-        This is a one-time process that must be performed separately for each blockchain network you wish to use.
-        
-        To help you test platform we sponsor **BASE** super account creation
-      security:
-        - BearerAuth: []
-        - ApiKeyAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                network:
-                  type: string
-                  description: The blockchain network identifier (e.g., "base", "eth", "bsc")
-              required:
-                - network
-            example:
-              network: "base"
-      responses:
-        '200':
-          description: Super account created successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                  wallet:
-                    type: string
-              example:
-                success: true
-                wallet: "0xa893acce5bd646d081ce6624f82c69de55dbef83"
-  /v1/trade/fetch-route:
-    post:
-      tags:
-        - Trading
-      summary: Fetch Trading Route
-      description: |
-        Identifies the optimal route for executing a transaction based on the specified token. 
-        This helper function determines whether to use a UniswapV2 pool, an aggregator, or a bonding curve for the best price execution.
-      security:
-        - BearerAuth: []
-        - ApiKeyAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                network:
-                  type: string
-                  description: The blockchain network identifier (e.g., "base", "eth", "bsc")
-                contractAddress:
-                  type: string
-                  description: The token contract address
-              required:
-                - network
-                - contractAddress
-            example:
-              network: "base"
-              contractAddress: "0xcA009aC6e54EC5132b4c416066196b007f488201"
-      responses:
-        '200':
-          description: Route fetched successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                  poolID:
-                    type: integer
-              example:
-                success: true
-                poolID: 0
-  /v1/trade/instant-buy:
-    post:
-      tags:
-        - Trading
-      summary: Create Buy Order
-      description: |
-        Creates a buy order with the specified parameters. 
-        If network information is not provided, the system will automatically determine the appropriate network. 
-        Default buy value will be used if buyAmount is not specified.
-      security:
-        - BearerAuth: []
-        - ApiKeyAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                network:
-                  type: string
-                  description: The blockchain network identifier (e.g., "base", "eth", "bsc")
-                contractAddress:
-                  type: string
-                  description: The token contract address
-                poolID:
-                  type: integer
-                  description: The pool ID to use for the trade (obtained from fetch-route)
-                degenMode:
-                  type: boolean
-                  description: Enables high-speed execution with less restrictive settings
-                buyAmount:
-                  type: number
-                  description: Amount of base currency to use for the purchase
-              required:
-                - contractAddress
-            example:
-              network: "sonic"
-              contractAddress: "0xaC097A4CD04B9cFef4B682066d5eF0fA0C88023B"
-              buyAmount: 5
-      responses:
-        '200':
-          description: Buy order executed successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                  transactionHash:
-                    type: string
-              example:
-                success: true
-                transactionHash: "0x5fd3fa7f5f5cce7fa976d893f5e8322a01d19490358f50b3256ce0242e0e95bb"
-  /v1/trade/custom-sell:
-    post:
-      tags:
-        - Trading
-      summary: Create Custom Sell Order
-      description: |
-        Creates a sell order with the specified parameter. In custom sell, the actual amount of token is expected. 
-        For example, if you hold 10 USDT tokens, then 10 is the sell value. The token decimals are automatically determined.
-      security:
-        - BearerAuth: []
-        - ApiKeyAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                network:
-                  type: string
-                  description: The blockchain network identifier (e.g., "base", "eth", "bsc")
-                contractAddress:
-                  type: string
-                  description: The token contract address
-                poolID:
-                  type: integer
-                  description: The pool ID to use for the trade (obtained from fetch-route)
-                degenMode:
-                  type: boolean
-                  description: Enables high-speed execution with less restrictive settings
-                sellAmount:
-                  type: number
-                  description: Exact amount of tokens to sell
-              required:
-                - network
-                - contractAddress
-                - sellAmount
-            example:
-              network: "bera"
-              poolID: 0
-              contractAddress: "0xaddress"
-              degenMode: false
-              sellAmount: 0.0212
-      responses:
-        '200':
-          description: Sell order executed successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                  transactionHash:
-                    type: string
-              example:
-                success: true
-                transactionHash: "0x3ea75a24786c1752c4f4cf8de03f3709689adc92ed0c0f74e24804fb1ff4d685"
-  /v1/trade/instant-sell:
-    post:
-      tags:
-        - Trading
-      summary: Create Instant Sell Order
-      description: |
-        Creates a sell order with the specified parameters. The difference between custom sell and instant sell is that 
-        with Instant sell you provide a percentage of tokens you want to sell. If percentage is not provided, it attempts to sell 100%.
-      security:
-        - BearerAuth: []
-        - ApiKeyAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                network:
-                  type: string
-                  description: The blockchain network identifier (e.g., "base", "eth", "bsc")
-                contractAddress:
-                  type: string
-                  description: The token contract address
-                poolID:
-                  type: integer
-                  description: The pool ID to use for the trade (obtained from fetch-route)
-                sellPercent:
-                  type: integer
-                  description: Percentage of your token balance to sell (1-100)
-              required:
-                - network
-                - contractAddress
-            example:
-              network: "base"
-              poolID: 0
-              contractAddress: "0x3E221DCd1823163d6D1C3b25103Dfd29e3E98294"
-              sellPercent: 100
-      responses:
-        '200':
-          description: Sell order executed successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                  transactionHash:
-                    type: string
-              example:
-                success: true
-                transactionHash: "0x3ea75a24786c1752c4f4cf8de03f3709689adc92ed0c0f74e24804fb1ff4d685"
-  /v1/portfolio/supported-networks:
-    get:
-      tags:
-        - Portfolio
-      summary: Get Supported Networks
-      description: View networks supported on ApeNinja and their supported pools
-      responses:
-        '200':
-          description: Networks retrieved successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                  networks:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        networkName:
-                          type: string
-                        networkChainID:
-                          type: integer
-                        baseToken:
-                          type: string
-                        decimals:
-                          type: integer
-                        pools:
-                          type: array
-                          items:
-                            type: string
-  /v1/portfolio/holdings:
-    get:
-      tags:
-        - Portfolio
-      summary: Get Holdings
-      description: Fetch total holdings and PNL for each asset
-      security:
-        - BearerAuth: []
-        - ApiKeyAuth: []
-      responses:
-        '200':
-          description: Holdings retrieved successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                  portfolio:
-                    type: array
-                    items:
-                      type: object
-  /v1/app-transaction/update-defaults:
-    post:
-      tags:
-        - Platform
-      summary: Update Default Settings
-      description: Update defaults for each wallet like defaultBuy value
-      security:
-        - BearerAuth: []
-        - ApiKeyAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                network:
-                  type: string
-                  description: The blockchain network identifier (e.g., "base", "eth", "bsc")
-                defaultBuy:
-                  type: string
-                  description: Default buy amount for this network
-              required:
-                - network
-                - defaultBuy
-            example:
-              network: "base"
-              defaultBuy: "0.0235"
-      responses:
-        '200':
-          description: Defaults updated successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  network:
-                    type: string
-                  defaultBuy:
-                    type: string
-components:
-  securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
-      description: JWT token obtained during login
-    ApiKeyAuth:
-      type: apiKey
-      in: header
-      name: x-api-key
-      description: API key received during registration
-security:
-  - BearerAuth: []
-  - ApiKeyAuth: []
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "ApeNinja API",
+    "description": "API for cryptocurrency trading that allows users to execute trades across multiple networks with ease.",
+    "license": {
+      "name": "MIT"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.apeninja.co"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    },
+    {
+      "apiKeyAuth": []
+    }
+  ],
+  "paths": {
+    "/v1/auth/initiate-auth": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Initiate Authentication",
+        "description": "Creates a new user profile on ApeNinja using the provided email address. A 6-digit one-time password (OTP) will be sent to the email for verification.",
+        "requestBody": {
+          "description": "User email address",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "User's email address"
+                  }
+                },
+                "required": ["email"]
+              },
+              "example": {
+                "email": "user@email.com"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OTP successfully sent",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "success": true,
+                  "message": "OTP Sent to Email"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/confirm-auth": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Confirm Authentication",
+        "description": "Verifies the one-time password (OTP) received via email. Returns a JWT authentication token upon successful verification.",
+        "requestBody": {
+          "description": "Email and OTP verification",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "User's email address"
+                  },
+                  "otp": {
+                    "type": "string",
+                    "description": "6-digit OTP received via email"
+                  }
+                },
+                "required": ["email", "otp"]
+              },
+              "example": {
+                "email": "user@email.com",
+                "otp": "123456"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Authentication successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "userData": {
+                      "type": "object"
+                    },
+                    "walletData": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
+                    "authToken": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "success": true,
+                  "userData": {
+                    "username": null,
+                    "role": "user",
+                    "isBanned": false,
+                    "userGUID": "5caa944e-b7bf-41d1-8fd7-b62e71e03b99",
+                    "email": "useremail@gmail.com"
+                  },
+                  "walletData": [
+                    {
+                      "walletAddress": "0x8AC94398753ADc94cA680675C22859Df8b617f8D",
+                      "superAccountAddress": null,
+                      "networkName": "eth",
+                      "defaultTrxnValue": 0.05,
+                      "isActivated": false
+                    }
+                  ],
+                  "authToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid OTP or email",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/reinitialise-api-key": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Reinitialize API Key",
+        "description": "Revokes the current API key and generates a new one. The newly created API key will be sent to your registered email address.",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "API key regeneration consent",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "consent": {
+                    "type": "boolean",
+                    "description": "Confirmation that user consents to API key regeneration"
+                  }
+                },
+                "required": ["consent"]
+              },
+              "example": {
+                "consent": true
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "API key successfully regenerated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "success": true,
+                  "message": "Updated API key is sent to email"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/profile": {
+      "get": {
+        "tags": ["Authentication"],
+        "summary": "Get User Profile",
+        "description": "Fetch user profile information including basic info and wallet info",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Profile information retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "user": {
+                      "type": "object"
+                    },
+                    "wallet": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "success": true,
+                  "user": {
+                    "username": null,
+                    "role": "user",
+                    "isBanned": false,
+                    "userGUID": "5caa944e-b7bf-41d1-8fd7-b62e71e03b99",
+                    "email": "useremail@gmail.com"
+                  },
+                  "wallet": [
+                    {
+                      "walletAddress": "0x8AC94398753ADc94cA680675C22859Df8b617f8D",
+                      "superAccountAddress": null,
+                      "networkName": "eth",
+                      "defaultTrxnValue": 0.05,
+                      "isActivated": false
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/trade/export-wallet": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Export Wallet Keys",
+        "description": "Exports the private keys for all wallets associated with your account and emails them to your registered address. WARNING: Using this feature will make your account ineligible for certain upcoming functionalities.",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "Key export consent",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "consent": {
+                    "type": "boolean",
+                    "description": "Confirmation that user consents to key export"
+                  }
+                },
+                "required": ["consent"]
+              },
+              "example": {
+                "consent": true
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Wallet keys successfully exported",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "success": true,
+                  "message": "Keys Exported sent to mail"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/trade/create-super-account": {
+      "post": {
+        "tags": ["Trading"],
+        "summary": "Create Super Account",
+        "description": "Deploys a SuperAccount smart contract on the specified blockchain to enable one-click buy and sell functionality. This is a one-time process that must be performed separately for each blockchain network you wish to use.",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "Network selection",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "network": {
+                    "type": "string",
+                    "description": "The blockchain network identifier (e.g., \"base\", \"eth\", \"bsc\")"
+                  }
+                },
+                "required": ["network"]
+              },
+              "example": {
+                "network": "base"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Super account created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "wallet": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "success": true,
+                  "wallet": "0xa893acce5bd646d081ce6624f82c69de55dbef83"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/trade/fetch-route": {
+      "post": {
+        "tags": ["Trading"],
+        "summary": "Fetch Trading Route",
+        "description": "Identifies the optimal route for executing a transaction based on the specified token. This helper function determines whether to use a UniswapV2 pool, an aggregator, or a bonding curve for the best price execution.",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "Token and network information",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "network": {
+                    "type": "string",
+                    "description": "The blockchain network identifier (e.g., \"base\", \"eth\", \"bsc\")"
+                  },
+                  "contractAddress": {
+                    "type": "string",
+                    "description": "The token contract address"
+                  }
+                },
+                "required": ["network", "contractAddress"]
+              },
+              "example": {
+                "network": "base",
+                "contractAddress": "0xcA009aC6e54EC5132b4c416066196b007f488201"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Route fetched successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "poolID": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "example": {
+                  "success": true,
+                  "poolID": 0
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/trade/instant-buy": {
+      "post": {
+        "tags": ["Trading"],
+        "summary": "Create Buy Order",
+        "description": "Creates a buy order with the specified parameters. If network information is not provided, the system will automatically determine the appropriate network. Default buy value will be used if buyAmount is not specified.",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "Buy order parameters",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "network": {
+                    "type": "string",
+                    "description": "The blockchain network identifier (e.g., \"base\", \"eth\", \"bsc\")"
+                  },
+                  "contractAddress": {
+                    "type": "string",
+                    "description": "The token contract address"
+                  },
+                  "poolID": {
+                    "type": "integer",
+                    "description": "The pool ID to use for the trade (obtained from fetch-route)"
+                  },
+                  "degenMode": {
+                    "type": "boolean",
+                    "description": "Enables high-speed execution with less restrictive settings"
+                  },
+                  "buyAmount": {
+                    "type": "number",
+                    "description": "Amount of base currency to use for the purchase"
+                  }
+                },
+                "required": ["contractAddress"]
+              },
+              "example": {
+                "network": "sonic",
+                "contractAddress": "0xaC097A4CD04B9cFef4B682066d5eF0fA0C88023B",
+                "buyAmount": 5
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Buy order executed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "success": true,
+                  "transactionHash": "0x5fd3fa7f5f5cce7fa976d893f5e8322a01d19490358f50b3256ce0242e0e95bb"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/trade/custom-sell": {
+      "post": {
+        "tags": ["Trading"],
+        "summary": "Create Custom Sell Order",
+        "description": "Creates a sell order with the specified parameter. In custom sell, the actual amount of token is expected. For example, if you hold 10 USDT tokens, then 10 is the sell value. The token decimals are automatically determined.",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "Sell order parameters",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "network": {
+                    "type": "string",
+                    "description": "The blockchain network identifier (e.g., \"base\", \"eth\", \"bsc\")"
+                  },
+                  "contractAddress": {
+                    "type": "string",
+                    "description": "The token contract address"
+                  },
+                  "poolID": {
+                    "type": "integer",
+                    "description": "The pool ID to use for the trade (obtained from fetch-route)"
+                  },
+                  "degenMode": {
+                    "type": "boolean",
+                    "description": "Enables high-speed execution with less restrictive settings"
+                  },
+                  "sellAmount": {
+                    "type": "number",
+                    "description": "Exact amount of tokens to sell"
+                  }
+                },
+                "required": ["network", "contractAddress", "sellAmount"]
+              },
+              "example": {
+                "network": "bera",
+                "poolID": 0,
+                "contractAddress": "0xaddress",
+                "degenMode": false,
+                "sellAmount": 0.0212
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Sell order executed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "success": true,
+                  "transactionHash": "0x3ea75a24786c1752c4f4cf8de03f3709689adc92ed0c0f74e24804fb1ff4d685"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/trade/instant-sell": {
+      "post": {
+        "tags": ["Trading"],
+        "summary": "Create Instant Sell Order",
+        "description": "Creates a sell order with the specified parameters. The difference between custom sell and instant sell is that with Instant sell you provide a percentage of tokens you want to sell. If percentage is not provided, it attempts to sell 100%.",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "Instant sell parameters",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "network": {
+                    "type": "string",
+                    "description": "The blockchain network identifier (e.g., \"base\", \"eth\", \"bsc\")"
+                  },
+                  "contractAddress": {
+                    "type": "string",
+                    "description": "The token contract address"
+                  },
+                  "poolID": {
+                    "type": "integer",
+                    "description": "The pool ID to use for the trade (obtained from fetch-route)"
+                  },
+                  "sellPercent": {
+                    "type": "integer",
+                    "description": "Percentage of your token balance to sell (1-100)"
+                  }
+                },
+                "required": ["network", "contractAddress"]
+              },
+              "example": {
+                "network": "base",
+                "poolID": 0,
+                "contractAddress": "0x3E221DCd1823163d6D1C3b25103Dfd29e3E98294",
+                "sellPercent": 100
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Sell order executed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "success": true,
+                  "transactionHash": "0x3ea75a24786c1752c4f4cf8de03f3709689adc92ed0c0f74e24804fb1ff4d685"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/portfolio/supported-networks": {
+      "get": {
+        "tags": ["Portfolio"],
+        "summary": "Get Supported Networks",
+        "description": "View networks supported on ApeNinja and their supported pools",
+        "responses": {
+          "200": {
+            "description": "Networks retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "networks": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "networkName": {
+                            "type": "string"
+                          },
+                          "networkChainID": {
+                            "type": "integer"
+                          },
+                          "baseToken": {
+                            "type": "string"
+                          },
+                          "decimals": {
+                            "type": "integer"
+                          },
+                          "pools": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "success": true,
+                  "networks": [
+                    {
+                      "networkName": "eth",
+                      "networkChainID": 1,
+                      "baseToken": "ETH",
+                      "decimals": 18,
+                      "pools": [
+                        "Aggregator",
+                        "UniswapV2"
+                      ]
+                    },
+                    {
+                      "networkName": "base",
+                      "networkChainID": 8453,
+                      "baseToken": "ETH",
+                      "decimals": 18,
+                      "pools": [
+                        "Aggregator",
+                        "UniswapV2"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/portfolio/holdings": {
+      "get": {
+        "tags": ["Portfolio"],
+        "summary": "Get Holdings",
+        "description": "Fetch total holdings and PNL for each asset",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Holdings retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "portfolio": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "tokenAddress": {
+                            "type": "string"
+                          },
+                          "networkName": {
+                            "type": "string"
+                          },
+                          "tokenName": {
+                            "type": "string"
+                          },
+                          "tokenSymbol": {
+                            "type": "string"
+                          },
+                          "tokenBalance": {
+                            "type": "number"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "success": true,
+                  "portfolio": [
+                    {
+                      "tokenAddress": "0xca009ac6e54ec5132b4c416066196b007f488201",
+                      "networkName": "base",
+                      "tokenBuyValue": 4.2229144699231505e+25,
+                      "tokenSellValue": 4.2229144699231505e+25,
+                      "nativeTokenBuyValue": 9950000000000000,
+                      "nativeTokenSellValue": 9674691923609724,
+                      "accountAddress": "0x5ed56ba996006e9620af7aeb7d80365212ac092c",
+                      "tokenName": "Hege",
+                      "tokenSymbol": "HEGE",
+                      "tokenDecimals": 18,
+                      "tokenBalance": 0
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/app-transaction/update-defaults": {
+      "post": {
+        "tags": ["Platform"],
+        "summary": "Update Default Settings",
+        "description": "Update defaults for each wallet like defaultBuy value",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "Default settings update",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "network": {
+                    "type": "string",
+                    "description": "The blockchain network identifier (e.g., \"base\", \"eth\", \"bsc\")"
+                  },
+                  "defaultBuy": {
+                    "type": "string",
+                    "description": "Default buy amount for this network"
+                  }
+                },
+                "required": ["network", "defaultBuy"]
+              },
+              "example": {
+                "network": "base",
+                "defaultBuy": "0.0235"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Defaults updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "network": {
+                      "type": "string"
+                    },
+                    "defaultBuy": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "network": "base",
+                  "defaultBuy": "0.0235"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "required": ["success", "message"],
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": false
+          },
+          "message": {
+            "type": "string",
+            "example": "Error message details"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "JWT token obtained during login"
+      },
+      "apiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key",
+        "description": "API key received during registration"
+      }
+    }
+  }
+}
