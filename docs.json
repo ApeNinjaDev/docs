@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.schema.json",
   "name": "ApeNinja Docs",
-  "theme": "maple",
+  "theme": "palm",
   "colors": {
     "primary": "#FDBA74",
     "light": "#FFEDD5",
