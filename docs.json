@@ -1,9 +1,9 @@
 {
   "$schema": "https://mintlify.com/docs.schema.json",
   "name": "ApeNinja Docs",
-  "theme": "palm",
+  "theme": "mint",
   "colors": {
-    "primary": "#FDBA74",
+    "primary": "#171717",
     "light": "#FFEDD5",
     "dark": "#EA580C"
   },
@@ -11,120 +11,50 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Documentation",
         "groups": [
           {
             "group": "Get Started",
             "pages": [
               "introduction",
               "why-apeninja",
-              "features"
+              "features",
+              "quickstart"
             ]
           },
           {
             "group": "Ecosystem",
             "pages": [
+              "ecosystem/core-foundation",
               "ecosystem/architecture",
+              "ecosystem/tech",
               "ecosystem/security",
-              "ecosystem/supported-chains",
-              "ecosystem/fees"
-            ]
-          },
-          {
-            "group": "Platform Guides",
-            "pages": [
-              "platform-guides/webapp",
-              "platform-guides/extension",
-              "platform-guides/telegram-bot",
-              "platform-guides/twitter-bot",
-              "platform-guides/sdk"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API Reference",
-        "groups": [
-          {
-            "group": "Getting Started",
-            "pages": [
-              "api-reference/introduction",
-              "api-reference/authentication"
-            ]
-          },
-          {
-            "group": "Authentication",
-            "pages": [
-              "api/v1/auth/initiate-auth",
-              "api/v1/auth/confirm-auth",
-              "api/v1/auth/reinitialise-api-key",
-              "api/v1/auth/profile",
-              "api/v1/trade/export-wallet"
-            ]
-          },
-          {
-            "group": "Trading",
-            "pages": [
-              "api/v1/trade/create-super-account",
-              "api/v1/trade/fetch-route",
-              "api/v1/trade/instant-buy",
-              "api/v1/trade/custom-sell",
-              "api/v1/trade/instant-sell"
-            ]
-          },
-          {
-            "group": "Portfolio",
-            "pages": [
-              "api/v1/portfolio/supported-networks",
-              "api/v1/portfolio/holdings"
-            ]
-          },
-          {
-            "group": "Platform",
-            "pages": [
-              "api/v1/app-transaction/update-defaults"
+              "ecosystem/fees",
+              "ecosystem/supported-chains"
             ]
           }
         ]
       }
-    ]
-  },
-  "openapi": "openapi/v1.json",
-  "api": {
-    "baseUrl": "https://api.apeninja.co",
-    "auth": {
-      "method": "bearer"
-    },
-    "playground": {
-      "mode": "simple"
+    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Website",
+          "href": "https://apeninja.co",
+          "icon": "globe"
+        },
+        {
+          "anchor": "Twitter",
+          "href": "https://twitter.com/apeninjaco",
+          "icon": "twitter"
+        }
+      ]
     }
   },
   "logo": {
     "light": "/logo/light.png",
     "dark": "/logo/dark.png"
   },
-  "anchors": [
-    {
-      "name": "Website",
-      "icon": "globe",
-      "url": "https://apeninja.co"
-    },
-    {
-      "name": "Telegram",
-      "icon": "telegram",
-      "url": "https://t.me/apeninjaofficial"
-    },
-    {
-      "name": "Discord",
-      "icon": "discord",
-      "url": "https://discord.gg/apeninja"
-    },
-    {
-      "name": "Twitter",
-      "icon": "twitter",
-      "url": "https://twitter.com/apeninja"
-    }
-  ],
   "feedback": {
     "thumbsRating": true
   },
